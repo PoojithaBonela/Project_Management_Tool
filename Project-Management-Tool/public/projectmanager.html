@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Project Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  
+</head>
+<body>
+  <nav>
+    <div class="logo">Project Manager</div>
+    <div class="nav-center">
+      <div class="search-bar">
+        <input type="text" placeholder="Search Projects...">
+      </div>
+      <button class="btn" id="createProjectBtn">+ Create</button>
+    </div>
+    <div class="auth-buttons">
+      <button onclick="logout()" class="btn">Logout</button>
+    </div>
+  </nav>
+
+  <div class="main">
+    <h1>Streamline Your Workflow, Achieve More.</h1>
+    <p>Effortlessly manage projects, collaborate with your team, and track progress with our intuitive platform.</p>
+  </div>
+
+  <!-- Modal -->
+  <div id="createProjectModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Create New Project</h2>
+      <form id="projectForm">
+        <label for="projectTitle">Project Title:</label>
+        <input type="text" id="projectTitle" name="title" required>
+
+        <label for="projectDescription">Description:</label>
+        <textarea id="projectDescription" name="description"></textarea>
+
+        <label for="projectDeadline">Deadline:</label>
+        <input type="date" id="projectDeadline" name="deadline">
+
+        <div class="modal-buttons">
+          <button type="button" class="btn cancel" id="cancelCreateProject">Cancel</button>
+          <button type="submit" class="btn">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <section class="project-container" id="projectContainer">
+    <!-- Project cards will be inserted here dynamically -->
+  </section>
+
+  <script src="/js/script.js"></script>
+  <script>
+  function logout() {
+    if (confirm('Are you sure you want to logout?')) {
+      console.log('Initiating logout...');
+      window.location.href = '/auth/logout';
+    }
+  }
+  </script>
+</body>
+</html>

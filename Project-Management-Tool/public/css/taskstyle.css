@@ -1,0 +1,1213 @@
+
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+      }
+
+      body {
+        background-color: #0e0e0e;
+        color: #fff;
+      }
+
+      nav {
+        background-color: #121212;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #00b4d8;
+      }
+
+      .nav-center {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .btn {
+        background: #0077b6;
+        border: none;
+        padding: 0.5rem 1rem;
+        color: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .btn:hover {
+        background: #0096c7;
+      }
+
+      .auth-buttons {
+        display: flex;
+        gap: 0.8rem;
+      }
+
+      .profile {
+        width: 35px;
+        height: 35px;
+        background-color: #1f1f1f;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        color: #00b4d8;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      /* Modal Styles */
+      /* Removed modal styles */
+      .column {
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  padding: 1rem;
+  width: 300px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.column-title {
+  color: #00b4d8;
+  font-size: 1 rem; /* Decreased from 1.2rem */
+  margin-bottom: 0.5rem;
+}
+
+.task-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.task-card {
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  padding: 0.8rem;
+  color: #b9e2ef;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  cursor: pointer;
+  position: relative; /* Ensure task-card is positioned for absolute positioning of the icon */
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease; /* Add this for smooth transition */
+}
+ 
+.task-card:hover {
+  box-shadow: 0 0 10px rgba(143, 165, 169, 0.5); /* Subtle blue glow */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.task-card:hover .delete-icon {
+  opacity: 1;
+  visibility: visible;
+}
+
+.delete-icon {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  right: 10px; /* Adjust as needed for horizontal positioning */
+  transform: translateY(-50%); /* Adjust for perfect vertical centering */
+  color: #ffffff; /* White color */
+  cursor: pointer;
+  font-size: 0.9rem; /* Smaller size */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+.task-card button {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  color: #bbb;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.task-card button:hover {
+  color: #ff6b6b;
+}
+
+.add-task-btn {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: #0077b6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-task-btn:hover {
+  background-color: #0096c7;
+}
+
+.task-input-box {
+  margin-top: 0.5rem;
+  background-color: #1e1e1e;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.task-title-input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2c2c2c;
+  color: white;
+}
+
+.task-input-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.save-task-btn,
+.cancel-task-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+}
+
+.save-task-btn {
+  background-color: #0077b6;
+}
+
+.save-task-btn:hover {
+  background-color: #0096c7;
+}
+
+.cancel-task-btn {
+  background-color: #444;
+}
+
+.cancel-task-btn:hover {
+  background-color: #666;
+}
+
+
+  .task-card.dragging {
+    opacity: 0.5;
+    border: 2px dashed #00b4d8;
+  }
+
+  .task-list.drag-over {
+    background-color: rgba(0, 180, 216, 0.1); /* Light blue overlay */
+    border-radius: 8px;
+  }
+  .column.drag-over .add-task-area {
+        margin-top: 50px; /* Adjust as needed */
+        transition: margin-top 0.2s ease-in-out;
+    }
+  /* Modal base */
+/* Modal container */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85); /* Changed to black with transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Hide modal */
+.hidden {
+  display: none;
+}
+
+/* Modal box */
+.modal-content {
+  background-color: #1a1a1a; /* Changed to a dark grey */
+  color: #fff; /* White text */
+  width: 80%;
+  height: 80%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Close button */
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  color: #fff; /* White color */
+  cursor: pointer;
+}
+
+/* Grid layout for modal */
+.modal-grid {
+  display: flex;
+  height: 100%;
+  gap: 1rem;
+}
+
+/* Left Panel */
+.modal-left {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-right: 1rem;
+  border-right: 1px solid #333; /* Dark grey border */
+  overflow-y: auto; /* Add this line */
+  &::-webkit-scrollbar {
+          display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.4rem;
+  color: #00b4d8; /* Blue color */
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.modal-actions button {
+  background-color: #0077b6; /* Blue button background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-actions button:hover {
+  background-color: #0096c7; /* Lighter blue on hover */
+}
+
+.description-box textarea {
+  width: 100%;
+  padding: 0.6rem;
+  background-color: #1e1e1e; /* Dark grey background */
+  border: 1px solid #333; /* Dark grey border */
+  border-radius: 5px;
+  color: #fff; /* White text */
+  resize: vertical;
+  min-height: 120px;
+}
+
+#newComment {
+  width: 100%;
+  padding: 0.6rem;
+  background-color: #1e1e1e; /* Dark grey background */
+  border: 1px solid #333; /* Dark grey border */
+  border-radius: 5px;
+  color: #fff; /* White text */
+  resize: vertical;
+}
+
+.date-box input,
+.file-box input,
+.member-box input {
+  width: 100%;
+  background-color: #1e1e1e; /* Dark grey background */
+  border: 1px solid #333; /* Dark grey border */
+  border-radius: 5px;
+  padding: 0.5rem;
+  color: #fff; /* White text */
+}
+
+.date-box label,
+.file-box label,
+.member-box label {
+  margin-bottom: 5px;
+  display: block;
+  font-weight: bold;
+  color: #ffffff; /* Blue color for labels */
+}
+/* Right Panel */
+/* Right Panel */
+.modal-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 1rem;
+  color: #caf0f8;
+}
+
+#commentsSection {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #1e1e1e;
+  padding: 0.5rem;
+  border-radius: 5px;
+  overflow-y: auto;
+  border: 1px solid #fff;
+}
+#addCommentBtn {
+  background-color: #00b4d8;
+  color: #000;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+#addCommentBtn:hover {
+  background-color: #90e0ef;
+}
+.description-box textarea,
+#commentsSection {
+  overflow-y: auto; /* Ensures scrollbar appears only when content overflows */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #384648 #2a2a2a; /* Firefox: thumb color track color */
+}
+
+.description-box textarea::-webkit-scrollbar,
+#commentsSection::-webkit-scrollbar {
+  width: 6px; /* Made scrollbar thinner */
+}
+
+.description-box textarea::-webkit-scrollbar-track,
+#commentsSection::-webkit-scrollbar-track {
+  background: #1e1e1a; /* Color of the scrollbar track */
+  border-radius: 10px;
+}
+
+.description-box textarea::-webkit-scrollbar-thumb,
+#commentsSection::-webkit-scrollbar-thumb {
+  background-color: #d9edf1; /* Color of the scrollbar thumb */
+  border-radius: 10px;
+  border: 1px solid #acadad; /* Thinner border around the thumb */
+}
+
+/* Comment layout */
+/* Comment layout */
+.comment {
+  position: relative;
+  display: flex;
+  flex-direction: row;     /* Always left to right */
+  align-items: flex-start;
+  padding: 0.5rem;
+  padding-left: 2.5rem;    /* Space for profile image */
+  padding-right: 2rem;    /* Space for delete icon */
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+/* Avatar fixed on the left for all messages */
+.comment-avatar {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  order: 0;
+}
+
+/* Common comment-body style */
+.comment-body {
+  padding: 0.3rem 0.5rem;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  color: #fff;
+  flex: 1;
+}
+.comment-text {
+  font-size: 0.9rem;
+}
+.comment-time {
+  font-size: 0.7rem;
+  color: #999;
+  margin-top: 0.2rem;
+  text-align: left;
+}
+
+/* Left-aligned comments */
+.message-left {
+  align-self: flex-start;
+  background-color: #2a2a2a;
+}
+
+/* Right-aligned comments */
+.message-right {
+  align-self: flex-end;
+  background-color: #004466;
+  /* The avatar stays fixed on left due to absolute positioning */
+}
+
+/* Delete button absolute top-right */
+.delete-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Show delete on hover */
+.comment:hover .delete-btn {
+  opacity: 1;
+  visibility: visible;
+  color: #fff;
+}
+.delete-btn:hover {
+  color: #ff6666;
+}
+
+/* Deleted message style */
+.message-deleted {
+  font-style: italic;
+  color: #333333; /* Changed from #525252 to a darker grey */
+  padding: 0.3rem;
+  border: 1px dashed #444;
+  border-radius: 4px;
+}
+
+/* 🔵 Add Members Modal */
+#addMembersModal .modal-content {
+  background-color: #1a1a1a;
+  color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 0 15px rgba(0, 180, 216, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+
+/* Modal title */
+#addMembersModal h2 {
+  font-size: 1.4rem;
+  color: #00b4d8;
+  margin-bottom: 0.5rem;
+}
+
+/* Search input */
+#memberSearchInput {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background-color: #1e1e1e;
+  color: white;
+  border: 1px solid #0077b6;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+/* Search results list */
+#searchResultsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+}
+
+#searchResultsList li {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: #caf0f8;
+}
+
+#searchResultsList li:hover {
+  background-color: #2c2c2c;
+}
+
+/* Selected Members */
+.selected-members h3 {
+  color: #00b4d8;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+#selectedMembersList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#selectedMembersList li {
+  padding: 0.4rem 0.6rem;
+  background-color: #2c2c2c;
+  border-radius: 6px;
+  margin-bottom: 0.4rem;
+  color: #b9e2ef;
+  font-size: 0.9rem;
+}
+
+/* Confirm button */
+#confirmAddMembersBtn {
+  background-color: #0077b6;
+  color: white;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#confirmAddMembersBtn:hover {
+  background-color: #0096c7;
+}
+
+/* Close button style if needed (if using span.close-button) */
+#addMembersModal .close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #ffffff;
+  transition: color 0.3s;
+}
+
+#addMembersModal .close-button:hover {
+  color: #90e0ef;
+}
+
+  .attachments-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+  }
+
+  .attachment-item {
+      background-color: #333;
+      padding: 2px 5px; /* Reduced padding from 8px 12px */
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+  }
+
+  .attachment-link {
+      color: #58bafc; /* Purple color for the link */
+      text-decoration: none;
+      font-weight: bold;
+  }
+
+  .attachment-link:hover {
+      text-decoration: underline;
+  }
+
+  .delete-attachment-icon {
+      color: hsl(0, 2%, 84%); /* Red color for the cross icon */
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1em;
+  }
+
+  .delete-attachment-icon:hover {
+      color: #3bbeff;
+  }
+
+  #attachmentsList {
+      max-height: 250px; /* Ensure this is set to a specific height */
+      overflow-y: auto;
+      padding-right: 10px;
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      &::-webkit-scrollbar {
+          display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+  }
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #121212; /* Similar to nav background */
+  color: #00b4d8; /* Similar to logo color */
+  padding: 1rem 2rem; /* Similar padding to nav */
+  font-size: 1.2rem; /* Similar font size to logo */
+  font-weight: 600; /* Similar font weight to logo */
+  border: none;
+  cursor: pointer;
+  border-radius: 0; /* Remove border-radius */
+  width: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); /* Similar shadow to nav */
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #1f1f1f; /* Slightly darker on hover */
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: relative; /* Changed from absolute to relative to allow page expansion */
+  background-color: #1a1a1a;
+  min-width: 230px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 8px;
+  margin-top: 5px;
+  /* Removed max-height and overflow-y to allow dynamic expansion */
+  width: 100%;
+  padding: 5px; /* Add some padding around the dropdown items */
+}
+
+/* Links inside the dropdown - make them look like task cards */
+.dropdown-content a {
+  color: #b9e2ef; /* Similar to task-card text color */
+  padding: 0.8rem; /* Similar padding to task-card */
+  text-decoration: none;
+  display: block;
+  font-size: 0.9rem;
+  border-bottom: none; /* Remove border-bottom */
+  background-color: #2a2a2a; /* Similar to task-card background */
+  border-radius: 8px; /* Similar border-radius to task-card */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3); /* Similar shadow to task-card */
+  margin-bottom: 10px; /* Space between items */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #2c2c2c; /* Slightly darker on hover */
+  box-shadow: 0 0 10px rgba(143, 165, 169, 0.5); /* Subtle blue glow */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content when the user clicks on the dropdown button) */
+.show {display: block;}
+
+/* New styles for status and deadline text within dropdown items */
+.dropdown-content .task-status,
+.dropdown-content .task-deadline {
+  color: #888; /* Grey color for status and deadline */
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+/* Style for the task title within the dropdown */
+.dropdown-content .task-title {
+  font-weight: bold;
+  color: #00b4d8; /* Blue color for task title */
+  margin-bottom: 5px;
+}
+
+/* Adjust the caret icon size and color */
+.dropbtn .fa-caret-down {
+  font-size: 1.2rem; /* Adjust size as needed */
+  color: #00b4d8; /* Match button text color */
+}
+
+/* Ensure the sidebar expands with content */
+aside {
+  width: 250px;
+  background-color: #111;
+  padding: 1rem;
+  overflow-y: visible; /* Allow content to expand */
+  height: auto; /* Allow height to adjust dynamically */
+}
+
+/* Adjust main content to prevent overflow issues if sidebar expands */
+main {
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  overflow-x: auto;
+  align-items: flex-start; /* Align columns to the top */
+}
+
+/* Ensure the overall container allows dynamic height */
+body > div:first-of-type {
+  display: flex;
+  flex-direction: row; /* Ensure side-by-side layout */
+  height: auto; /* Allow height to expand */
+  overflow: visible; /* Allow content to expand */
+}
+/* Styles for the View Members Modal (Unique Names) */
+.view-members-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.85); /* Changed to match general modal overlay */
+    padding-top: 0; /* Remove padding-top to center vertically */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.view-members-modal-content {
+    background-color: #1a1a1a; /* Dark grey background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    padding: 1.5rem; /* Increased padding */
+    width: 400px; /* Fixed width for consistency */
+    max-width: 90%; /* Max width for responsiveness */
+    box-shadow: 0 0 15px rgba(0, 180, 216, 0.4); /* Blue glow shadow */
+    display: flex; /* Use flexbox for internal layout */
+    flex-direction: column; /* Stack content vertically */
+    gap: 1rem; /* Space between elements */
+    position: relative; /* For close button positioning */
+}
+
+.view-members-modal-content h2 {
+    text-align: left; /* Align title to left */
+    color: #00b4d8; /* Blue color for title */
+    margin-bottom: 0.5rem; /* Reduced margin */
+    font-size: 1.4rem; /* Larger font size */
+}
+
+/* Styles for the list of members in the View Members modal */
+#projectMembersList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px; /* Adjust as needed */
+  overflow-y: auto;
+  background-color: #1e1e1e; /* Darker background for list */
+  border: 1px solid #333; /* Border for list */
+  border-radius: 8px; /* Rounded corners for list */
+}
+
+#projectMembersList li {
+  display: flex; /* Use Flexbox to align items horizontally */
+  align-items: center; /* Vertically center the image and text */
+  padding: 10px 20px;
+  border-bottom: 1px solid #333;
+  color: #caf0f8; /* Light blue color for text */
+  transition: background 0.2s; /* Smooth transition for hover */
+}
+
+#projectMembersList li:last-child {
+  border-bottom: none; /* Remove border from the last item */
+}
+
+#projectMembersList li:hover {
+    background-color: #2c2c2c; /* Slightly darker on hover */
+}
+
+#projectMembersList li strong {
+    color: #caf0f8; /* Keep consistent light blue color */
+}
+
+.view-members-modal .close-button {
+    color: #ffffff; /* White color for close button */
+    float: none; /* Remove float */
+    font-size: 1.4rem; /* Adjusted font size */
+    font-weight: normal; /* Normal font weight */
+    position: absolute;
+    top: 1rem;
+    right: 1.2rem; /* Adjusted right position */
+    cursor: pointer;
+    transition: color 0.3s; /* Smooth transition for hover */
+}
+
+.view-members-modal .close-button:hover,
+.view-members-modal .close-button:focus {
+    color: #90e0ef; /* Lighter blue on hover */
+    text-decoration: none;
+}
+.hidden {
+    display: none !important;
+  }
+
+.member-profile-pic {
+    width: 30px; /* Adjust size as needed */
+    height: 30px; /* Adjust size as needed */
+    border-radius: 50%; /* Make it round */
+    margin-right: 10px; /* Add space between the image and the name */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
+/* Style for the member display name */
+#projectMembersList li span {
+  flex-grow: 1; /* Allow the span to take up remaining space */
+  text-align: left; /* Ensure text is left-aligned */
+}
+
+/* Assign Members to Task Modal */
+#assignMembersToTaskModal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#assignMembersToTaskModal .modal-content {
+  background-color: #1a1a1a;
+  color: white;
+  border: none;
+  padding: 1.5rem;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 0 15px rgba(0, 180, 216, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  border-radius: 10px;
+}
+
+#assignMembersToTaskModal .modal-content h2 {
+  text-align: left;
+  color: #00b4d8;
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+}
+
+#assignMembersList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+}
+
+#assignMembersList .member-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #333;
+  color: #caf0f8;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s;
+}
+
+#assignMembersList .member-item:last-child {
+  border-bottom: none;
+}
+
+#assignMembersList .member-item:hover {
+  background-color: #2c2c2c;
+}
+
+#assignMembersList .member-item img.profile-pic {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 12px;
+  object-fit: cover;
+}
+
+#assignMembersList .member-item span {
+  flex-grow: 1;
+  text-align: left;
+  font-size: 1rem;
+}
+
+/* Show thick blue tick on selection */
+#assignMembersList .member-item.selected::after {
+  content: '✔';
+  font-size: 1.4rem;
+  color: #00b4d8;
+  font-weight: bold;
+  margin-left: auto;
+}
+
+/* Close button */
+#assignMembersToTaskModal .close-button {
+  color: #ffffff;
+  font-size: 1.4rem;
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#assignMembersToTaskModal .close-button:hover {
+  color: #90e0ef;
+}
+
+/* Assign button */
+#confirmAssignMembersBtn {
+  background-color: #0077b6;
+  color: white;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#confirmAssignMembersBtn:hover {
+  background-color: #0096c7;
+}
+
+.hidden {
+  display: none !important;
+}
+
+  .attachments-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+  }
+  .assigned-members-row {
+    margin-top: 10px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .assigned-member-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #222; /* Optional: border for visibility */
+  }
+  
+  .attachment-item {
+      background-color: #333;
+      padding: 2px 5px; /* Reduced padding from 8px 12px */
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+  }
+
+  .attachment-link {
+      color: #58bafc; /* Purple color for the link */
+      text-decoration: none;
+      font-weight: bold;
+  }
+
+  .attachment-link:hover {
+      text-decoration: underline;
+  }
+
+  .delete-attachment-icon {
+      color: hsl(0, 2%, 84%); /* Red color for the cross icon */
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1em;
+  }
+
+  .delete-attachment-icon:hover {
+      color: #3bbeff;
+  }
+
+  #attachmentsList {
+      max-height: 250px; /* Ensure this is set to a specific height */
+      overflow-y: auto;
+      padding-right: 10px;
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      &::-webkit-scrollbar {
+          display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+  }
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #121212; /* Similar to nav background */
+  color: #00b4d8; /* Similar to logo color */
+  padding: 1rem 2rem; /* Similar padding to nav */
+  font-size: 1.2rem; /* Similar font size to logo */
+  font-weight: 600; /* Similar font weight to logo */
+  border: none;
+  cursor: pointer;
+  border-radius: 0; /* Remove border-radius */
+  width: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); /* Similar shadow to nav */
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #1f1f1f; /* Slightly darker on hover */
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: relative; /* Changed from absolute to relative to allow page expansion */
+  background-color: #1a1a1a;
+  min-width: 230px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 8px;
+  margin-top: 5px;
+  /* Removed max-height and overflow-y to allow dynamic expansion */
+  width: 100%;
+  padding: 5px; /* Add some padding around the dropdown items */
+}
+
+/* Links inside the dropdown - make them look like task cards */
+.dropdown-content a {
+  color: #b9e2ef; /* Similar to task-card text color */
+  padding: 0.8rem; /* Similar padding to task-card */
+  text-decoration: none;
+  display: block;
+  font-size: 0.9rem;
+  border-bottom: none; /* Remove border-bottom */
+  background-color: #2a2a2a; /* Similar to task-card background */
+  border-radius: 8px; /* Similar border-radius to task-card */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3); /* Similar shadow to task-card */
+  margin-bottom: 10px; /* Space between items */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #2c2c2c; /* Slightly darker on hover */
+  box-shadow: 0 0 10px rgba(143, 165, 169, 0.5); /* Subtle blue glow */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content when the user clicks on the dropdown button) */
+.show {display: block;}
+
+/* New styles for status and deadline text within dropdown items */
+.dropdown-content .task-status,
+.dropdown-content .task-deadline {
+  color: #888; /* Grey color for status and deadline */
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+/* Style for the task title within the dropdown */
+.dropdown-content .task-title {
+  font-weight: bold;
+  color: #00b4d8; /* Blue color for task title */
+  margin-bottom: 5px;
+}
+
+/* Adjust the caret icon size and color */
+.dropbtn .fa-caret-down {
+  font-size: 1.2rem; /* Adjust size as needed */
+  color: #00b4d8; /* Match button text color */
+}
+
+/* Ensure the sidebar expands with content */
+aside {
+  width: 250px;
+  background-color: #111;
+  padding: 1rem;
+  overflow-y: visible; /* Allow content to expand */
+  height: auto; /* Allow height to adjust dynamically */
+}
+
+/* Adjust main content to prevent overflow issues if sidebar expands */
+main {
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  overflow-x: auto;
+  align-items: flex-start; /* Align columns to the top */
+}
+
+/* Ensure the overall container allows dynamic height */
+body > div:first-of-type {
+  display: flex;
+  flex-direction: row; /* Ensure side-by-side layout */
+  height: auto; /* Allow height to expand */
+  overflow: visible; /* Allow content to expand */
+}
+  

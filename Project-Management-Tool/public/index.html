@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="css/indexstyle.css">
+  <title>Project Manager</title>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Project Manager</h1>
+    <div class="right-controls">
+      <button class="button" onclick="location.href='/login.html'">Login</button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <!-- Text Content -->
+      <div class="hero-text">
+        <h2>Streamline Your Workflow, Achieve More.</h2>
+        <p>
+          Effortlessly manage projects, collaborate with your team, and track progress with our intuitive platform.
+        </p>
+        <button class="button" onclick="location.href='/login.html'">Get Started Now</button>
+      </div>
+
+      <!-- Image -->
+      <div class="hero-image">
+        <img src="./images/projectimage1.png" alt="Project Management Dashboard" />
+      </div>
+    </div>
+  </section>
+  <section class="key-features">
+    <h2 class="section-title">Key Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <i class="fas fa-users"></i> <!-- Replaced img with Font Awesome icon -->
+        <h3>Team Collaboration</h3>
+        <p>Work together seamlessly with shared tasks, files, and feedback.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-tasks"></i> <!-- Replaced img with Font Awesome icon -->
+        <h3>Smart Task Management</h3>
+        <p>Track progress, assign priorities, and never miss a deadline.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-folder-open"></i> <!-- Replaced img with Font Awesome icon -->
+        <h3>Centralized File Sharing</h3>
+        <p>Upload and access files directly from each task so all your important resources stay in one place.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-columns"></i> <!-- Replaced img with Font Awesome icon -->
+        <h3>Interactive Kanban</h3>
+        <p>Organize workflows visually with simple drag-and-drop cards.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-comments"></i> <!-- Replaced img with Font Awesome icon -->
+        <h3>Comment On Team progress</h3>
+        <p>Comment directly on tasks to keep all conversations organized and tied to the work.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-chart-line"></i> <!-- Replaced img with Font Awesome icon -->
+        <h3>Monitor Project Progress</h3>
+        <p>See which tasks are completed, in progress, or not started at a glance using visual columns.</p>
+      </div>
+    </div>
+  </section>
+  <script>
+    fetch('/auth/check')
+      .then(res => res.json())
+      .then(data => {
+        if (data.loggedIn) {
+          window.location.href = '/projectmanager.html';
+        }
+      });
+  </script>  
+</body>
+</html>

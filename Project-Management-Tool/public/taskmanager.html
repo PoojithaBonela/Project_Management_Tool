@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="/css/taskstyle.css">
+</head>
+<body>
+  <nav>
+    <div class="logo">Task Manager</div>
+    <div class="nav-center">
+      <a href="/projectmanager.html" style="color: #ffffff; text-decoration: none; padding: 1rem 2rem; font-size: 1.1rem;">Projects</a> 
+      <button id="addMemberBtn" onclick="openAddMembersModal()" style="color: #fff; text-decoration: none; padding: 1rem 2rem; background: none; border: none; cursor: pointer;  font-size: 1.1rem;"><i class="fas fa-user-plus"></i> Add Members</button>
+      <button id="viewMembersBtn" style="color: #fff; text-decoration: none; padding: 1rem 2rem; background: none; border: none; cursor: pointer;font-size: 1.1rem;"><i class="fas fa-address-book"></i> View Members</button>
+    </div>
+    <div class="auth-buttons">
+    </div>
+    <div class="auth-buttons">
+      <button onclick="logout()" class="btn">Logout</button>
+    </div>
+</nav>
+  <div style="display: flex; /* REMOVE height: calc(100vh - 70px); and overflow: hidden; */">
+    <!-- Sidebar -->
+    <aside style="width: 250px; background-color: #111; padding: 1rem; overflow-y: auto;">
+      <div class="dropdown">
+        <button class="dropbtn" id="viewTasksDropdownBtn">View Tasks <i class="fas fa-caret-down"></i></button>
+        <div class="dropdown-content" id="allTasksDropdown">
+          <!-- Tasks will be listed here -->
+        </div>
+      </div>
+    </aside>
+  
+    <!-- Main board -->
+    <main style="flex: 1; display: flex; gap: 1rem; padding: 1rem; overflow-x: auto;">
+      <div class="column" data-status="To Do">
+        <h2>To Do</h2>
+        <div class="task-list"></div>
+      
+        <!-- Inline add task UI -->
+        <div class="add-task-area">
+          <button class="add-task-btn">+ Add a task</button>
+          <div class="task-input-container" style="display: none;">
+            <input type="text" placeholder="Task Title" class="task-title-input" />
+            <textarea placeholder="Task Description" class="task-desc-input"></textarea>
+            <div class="task-input-actions">
+              <button class="save-task-btn">Add task</button>
+              <button class="cancel-task-btn">X</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="column" data-status="In Progress">
+        <h2>In Progress</h2>
+        <div class="task-list"></div>
+      
+        <!-- Inline add task UI -->
+        <div class="add-task-area">
+          <button class="add-task-btn">+ Add task</button>
+          <div class="task-input-container" style="display: none;">
+            <input type="text" placeholder="Task Title" class="task-title-input" />
+            <textarea placeholder="Task Description" class="task-desc-input"></textarea>
+            <div class="task-input-actions">
+              <button class="save-task-btn">Add task</button>
+              <button class="cancel-task-btn">X</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="column" data-status="Completed">
+        <h2>Completed</h2>
+        <div class="task-list"></div>
+    
+        <!-- Inline add task UI -->
+        <div class="add-task-area">
+          <button class="add-task-btn">+ Add task</button>
+          <div class="task-input-container" style="display: none;">
+            <input type="text" placeholder="Task Title" class="task-title-input" />
+            <textarea placeholder="Task Description" class="task-desc-input"></textarea>
+            <div class="task-input-actions">
+              <button class="save-task-btn">Add task</button>
+              <button class="cancel-task-btn">X</button>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </main>
+  </div>
+  <!-- Trello-style Task Detail Modal -->
+<div id="taskDetailModal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+
+    <div class="modal-grid">
+      <!-- LEFT SIDE -->
+      <div class="modal-left">
+        <div class="modal-header">
+          <i class="far fa-circle" style="color: #959595;"></i>
+          <h2 id="modalTaskTitle">Task Title</h2>
+        </div>
+
+        <!-- Buttons -->
+        <div class="modal-actions">
+          <button id="addDeadlineBtn"><i class="fas fa-calendar-alt"></i> Add Deadlines</button>
+          <input type="date" id="taskDeadlineInput" style="display: none;">
+          <button><i class="fas fa-user-plus"></i> Assign Task</button>
+        </div>
+        <div id="assignedMembersDisplay" class="assigned-members-row"></div>
+
+        <!-- Description Box -->
+        <div class="description-box">
+          <label for="taskDescription"><i class="fas fa-align-left"></i> Description</label>
+          <textarea id="taskDescription" placeholder="Add a detailed description..."></textarea>
+          <div id="descriptionWordCount" style="text-align: right; font-size: 0.8em; color: #666;">0/200 words</div>
+        </div>
+
+        <div class="file-box">
+          <label for="taskAttachments"><i class="fas fa-paperclip"></i> Attachments</label>
+          <input type="file" id="taskAttachments" multiple>
+          <div id="attachmentsList" style="margin-top: 10px;"></div> <!-- New div to display attachments -->
+        </div>
+
+        <div class="modal-section">
+      
+            <!-- The duplicate div with id="assignedMembersDisplay" has been removed from here -->
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <div class="modal-right">
+        <h3><i class="fas fa-comments"></i> Comments</h3>
+        <div id="commentsSection"></div>
+        <textarea id="newComment" placeholder="Write a comment..." rows="2"></textarea>
+        <button id="addCommentBtn"><i class="fas fa-comment"></i> Add Comment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- Add Members Modal -->
+ <div id="addMembersModal" class="modal hidden">
+   <div class="modal-content">
+     <span class="close-button">&times;</span>
+     <h2>Add Members to Project</h2>
+     <div class="search-container">
+       <input type="text" id="memberSearchInput" placeholder="Search for users...">
+       <ul id="searchResultsList"></ul>
+     </div>
+     <div class="selected-members">
+       <h3>Selected Members:</h3>
+       <ul id="selectedMembersList"></ul>
+     </div>
+     <button id="confirmAddMembersBtn" class="btn">Confirm Add Members</button>
+   </div>
+ </div>
+ 
+ <!-- View Members Modal -->
+ <div class="view-members-modal hidden">
+     <div class="view-members-modal-content">
+         <span class="close-button">&times;</span>
+         <h2>Project Members</h2>
+         <ul id="projectMembersList"></ul>
+     </div>
+ </div>
+
+ <!-- Assign Members to Task Modal --> 
+ <div id="assignMembersToTaskModal" class="modal hidden">
+   <div class="modal-content">
+     <span class="close-button">&times;</span>
+     <h2>Assign Members to Task</h2>
+     <ul id="assignMembersList"></ul> <!-- Changed ID from assignableProjectMembersList -->
+     <button id="confirmAssignMembersBtn" class="btn">Assign Selected Members</button>
+   </div>
+ </div>
+
+  <script src="/js/taskmanager.js"></script>
+  <script src="/js/comments.js"></script>
+  <script>
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        console.log('Initiating logout...');
+        window.location.href = '/auth/logout';
+      }
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+/* Reset and Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #111827; ;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar - Exact Match */
+nav {
+  background-color: #1a1d29;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #52c4da;
+}
+
+nav .auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+nav .auth-buttons .btn {
+  background-color: #00aaff;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+nav .auth-buttons .btn:hover {
+  background-color: #0096c7;
+}
+
+/* Login Section */
+.login-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.login-box {
+    background-color: #1a1d29; /* Darker background for the login box */
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-box h2 {
+  font-size: 1.9rem;
+  color: #90e0ef;
+  margin-bottom: 2rem;
+}
+
+/* Google Button */
+.google-login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0077b6;
+  color: #ffffff;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.3);
+  gap: 0.7rem;
+  cursor: pointer;
+}
+
+.google-login-button:hover {
+  background-color: #0096c7;
+}
+
+.google-login-button img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 2rem 1.5rem;
+  }
+
+  .login-box h2 {
+    font-size: 2rem;
+  }
+
+  .google-login-button {
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+  }
+}
