@@ -147,29 +147,45 @@ Visit `http://localhost:3000` in your browser.
 🏠 Homepage
 Shows a clean landing page with an overview of the app’s core features.
 
+
 ![Homepage](ProjectScreenshots/home.png)
 ![Key Features](ProjectScreenshots/keyfeatures.png)
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 🔐 Google Login
 Users can sign in securely using Google OAuth.
 
+
 ![Login](ProjectScreenshots/login.png)
 ![Google Screen](ProjectScreenshots/googlescreen.png)
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 📁 Create & View Projects
 Users can create new projects by providing a title, description, and deadline. All created projects are shown as cards on the dashboard.
 
+
 ![Create Project Form](ProjectScreenshots/createproject.png)
 ![Project Dashboard](ProjectScreenshots/projects.png)
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 👥 Add & View Members
 After clicking on a project card, users can add team members to the project and view the full list of members collaborating on it.
 
+
 ![Add Members to Project](ProjectScreenshots/addmembers.png)
 ![View Project Members](ProjectScreenshots/viewmembers.png)
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 🧩 Task Manager Board
@@ -179,14 +195,22 @@ Inside a project, users can:
 * Use **drag and drop** functionality to move tasks between columns.
 * Click on **View Tasks** dropdown to see all tasks sorted by their deadlines.
 
+
 ![Task Manager Board](ProjectScreenshots/taskmanager.png)
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 👥 Assign Members to Tasks
 * Users can assign one or more project members to a specific task.
 * Assigned members’ **profile icons appear** on the task card UI.
+
   
 ![Assign Tasks](ProjectScreenshots/assigntasks.png)
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 📝 Task Detail Modal
