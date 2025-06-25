@@ -10,19 +10,19 @@
 
 Frontend:
 * HTML, CSS, JavaScript
- Static pages for login, registration, project dashboard (`projectmanager.html`), and task board (`taskmanager.html`)
- Client-side interactivity and drag-and-drop handled in JS
- Located in the `/public` folder
+  Static pages for login, registration, project dashboard (`projectmanager.html`), and task board (`taskmanager.html`)
+  Client-side interactivity and drag-and-drop handled in JS
+  Located in the `/public` folder
 
 Backend:
 * Node.js with Express.js
- Handles API routing, authentication, sessions, and business logic
- All backend logic is modularized in the `/Project-Management-Tool/` directory
+  Handles API routing, authentication, sessions, and business logic
+  All backend logic is modularized in the `/Project-Management-Tool/` directory
 
 Database:
 * MySQL with Sequelize (ORM)
- Stores user accounts, projects, tasks, comments, assignments, deadlines
- Database connection configured in `config/db.js`
+  Stores user accounts, projects, tasks, comments, assignments, deadlines
+  Database connection configured in `config/db.js`
 
 Authentication:
 * Passport.js for middleware authentication
@@ -39,17 +39,17 @@ Environment:
 Top-Level Files and Folders:
 
  * `.env.demo`  
-  Example environment file containing keys like `GOOGLE_CLIENT_ID`, `SESSION_SECRET`, and MySQL credentials (`DB_HOST`, `DB_USER`, etc.)
+    - Example environment file containing keys like `GOOGLE_CLIENT_ID`, `SESSION_SECRET`, and MySQL credentials (`DB_HOST`, `DB_USER`, etc.)
  * `.gitignore`  
-  Excludes sensitive files (e.g., `.env`, `node_modules`, etc.) from version control
+    - Excludes sensitive files (e.g., `.env`, `node_modules`, etc.) from version control
  * `server.js`  
-  Main application entry point:
-  -Initializes Express server
-  - Connects to MySQL using Sequelize
-  - Applies middleware for parsing requests and managing sessions
-  - Integrates all route modules and authentication
+    - Main application entry point:
+    - Initializes Express server
+    - Connects to MySQL using Sequelize
+    - Applies middleware for parsing requests and managing sessions
+    - Integrates all route modules and authentication
  * `package.json` & `package-lock.json`  
-  Define Node.js project metadata and dependencies
+    - Define Node.js project metadata and dependencies
 
 ---
 
@@ -60,7 +60,7 @@ Top-Level Files and Folders:
  * `passport.js`: Sets up Google OAuth strategy using `passport-google-oauth20`.
 
  ✅ `controllers/`
-  Handles business logic for:
+ Handles business logic for:
  * `authController.js`: Manages login and logout logic.
  * `commentController.js`: Handles creation and retrieval of task-specific comments.
  * `projectController.js`: Manages project creation, editing, deletion, and member assignment.
@@ -79,8 +79,8 @@ Top-Level Files and Folders:
  * `projectMemberModel.js`: Many-to-many relationship between users and projects.
  * `index.js`: Initializes Sequelize and sets up all model associations.
 
-✅* `public/`  
-* Contains static frontend files: HTML, CSS, and JavaScript
+✅ `public/`  
+ * Contains static frontend files: HTML, CSS, and JavaScript
 
 ✅ `routes/`
 Express route handlers:
@@ -121,9 +121,8 @@ DB_NAME=your-db-name
 DB_USER=your-db-user
 DB_PASSWORD=your-db-password
 ```
-* If you want to use your own MongoDB and Google OAuth credentials Update `.env.demo`:
+* If you want to use your own Google OAuth credentials Update `.env.demo`:
 ```
-MONGO_URI=your_own_mongodb_connection_string
 SESSION_SECRET=any_random_secure_string
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
@@ -140,4 +139,8 @@ npm start
 
 5. Open the App:
 Visit `http://localhost:3000` in your browser.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+📌 Features
 
